@@ -1,0 +1,101 @@
+:root {
+    --cat-color: #222;
+    --tux-white: #fff;
+    --eye-color: #b5e48c;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #fff0f3;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
+
+.cat-duo { display: flex; gap: 40px; margin-bottom: 20px; }
+
+.cat {
+    position: relative;
+    width: 120px;
+    height: 100px;
+    background: var(--cat-color);
+    border-radius: 40px 40px 20px 20px;
+    transition: all 0.3s ease;
+}
+
+.cat::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 40px;
+    background: var(--tux-white);
+    border-radius: 50% 50% 0 0;
+}
+
+.ear {
+    position: absolute;
+    top: -15px;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 30px solid var(--cat-color);
+}
+.ear.left { left: 10px; transform: rotate(-15deg); }
+.ear.right { right: 10px; transform: rotate(15deg); }
+
+.eye {
+    position: absolute;
+    top: 35px;
+    width: 15px;
+    height: 15px;
+    background: var(--eye-color);
+    border-radius: 50%;
+    z-index: 2;
+}
+.eye.left { left: 30px; }
+.eye.right { right: 30px; }
+
+.tear {
+    position: absolute;
+    top: 50px;
+    width: 8px;
+    height: 12px;
+    background: #a2d2ff;
+    border-radius: 0 50% 50% 50%;
+    transform: rotate(45deg);
+    display: none;
+    z-index: 3;
+}
+
+.name-tag {
+    text-align: center;
+    color: white;
+    font-size: 10px;
+    margin-top: 75px;
+    position: relative;
+    z-index: 5;
+}
+
+/* States */
+.sad .eye { height: 3px; background: #555; }
+.sad .tear { display: block; animation: drip 1s infinite; }
+.happy .eye { background: #ff4d6d; border-radius: 50% 50% 0 0; transform: scale(1.5); }
+
+@keyframes drip {
+    0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+    100% { transform: translateY(20px) rotate(45deg); opacity: 0; }
+}
+
+h1 { color: #c9184a; }
+.btn-container { display: flex; gap: 20px; position: relative; height: 60px; align-items: center; }
+button { padding: 12px 25px; font-size: 1.1rem; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; }
+#yesBtn { background: #ff4d6d; color: white; z-index: 10; }
+#noBtn { background: #888; color: white; position: absolute; left: 100px; transition: 0.1s; }
