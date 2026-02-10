@@ -171,7 +171,7 @@
             100% { transform: translateY(40px) rotate(45deg); opacity: 0; }
         }
 
-        h1 { color: #c9184a; text-align: center; font-size: 2.2rem; margin-bottom: 30px; }
+        h1 { color: #c9184a; text-align: center; font-size: 2.2rem; margin-bottom: 30px; transition: 0.3s; }
 
         .btn-container { display: flex; gap: 30px; position: relative; height: 80px; align-items: center; }
 
@@ -186,7 +186,7 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        #yesBtn { background: var(--heart-red); color: white; }
+        #yesBtn { background: var(--heart-red); color: white; z-index: 100; }
         #noBtn { background: #adb5bd; color: white; position: absolute; left: 160px; transition: 0.15s ease-out; }
 
     </style>
@@ -232,25 +232,37 @@
         const mainText = document.getElementById('mainText');
 
         let yesScale = 1;
+        let dodgeCount = 0;
+        const maxDodges = 5; // The button will run away 5 times, then stay still.
 
-        // No button runs away
+        // "No" button runs away
         noBtn.addEventListener('mouseover', () => {
-            const maxX = window.innerWidth - noBtn.offsetWidth;
-            const maxY = window.innerHeight - noBtn.offsetHeight;
-            
-            const randomX = Math.floor(Math.random() * maxX);
-            const randomY = Math.floor(Math.random() * maxY);
+            if (dodgeCount < maxDodges) {
+                const maxX = window.innerWidth - noBtn.offsetWidth;
+                const maxY = window.innerHeight - noBtn.offsetHeight;
+                
+                // Keep it somewhat near the center area so it doesn't disappear
+                const randomX = Math.floor(Math.random() * (maxX * 0.8)) + (maxX * 0.1);
+                const randomY = Math.floor(Math.random() * (maxY * 0.8)) + (maxY * 0.1);
 
-            noBtn.style.left = randomX + 'px';
-            noBtn.style.top = randomY + 'px';
+                noBtn.style.left = randomX + 'px';
+                noBtn.style.top = randomY + 'px';
+                
+                dodgeCount++;
+            }
         });
 
-        // If she managed to click No (the guilt trip)
+        // If she manages to click No (the guilt trip)
         noBtn.addEventListener('click', () => {
             billie.classList.add('sad');
             sky.classList.add('sad');
+            billie.classList.remove('happy');
+            sky.classList.remove('happy');
+            
             mainText.innerText = "You're making Billie and Sky cry... 😿";
-            yesScale += 0.5;
+            
+            // Make the YES button grow massively
+            yesScale += 1.2;
             yesBtn.style.transform = `scale(${yesScale})`;
         });
 
