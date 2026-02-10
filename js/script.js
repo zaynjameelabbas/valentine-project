@@ -26,6 +26,6 @@ yesBtn.addEventListener('click', () => {
     sky.classList.remove('sad');
     billie.classList.add('happy');
     sky.classList.add('happy');
-    mainText.innerText = "YAY! The cats are purring! ❤️";
+    mainText.innerText = "I love you! The girls are so happy ❤️";
     noBtn.style.display = 'none';
 });

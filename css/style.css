@@ -1,101 +1,142 @@
 :root {
-    --cat-color: #222;
-    --tux-white: #fff;
-    --eye-color: #b5e48c;
+    --cat-black: #1a1a1b;
+    --tux-white: #ffffff;
+    --nose-pink: #ffb7c5;
+    --eye-green: #c1ff72;
 }
 
 body {
+    background-color: #fff0f3;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-color: #fff0f3;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Arial', sans-serif;
     overflow: hidden;
 }
 
-.cat-duo { display: flex; gap: 40px; margin-bottom: 20px; }
-
-.cat {
-    position: relative;
-    width: 120px;
-    height: 100px;
-    background: var(--cat-color);
-    border-radius: 40px 40px 20px 20px;
-    transition: all 0.3s ease;
+.cat-duo {
+    display: flex;
+    gap: 60px;
+    margin-bottom: 40px;
 }
 
-.cat::after {
+/* --- THE UPDATED CAT --- */
+.cat {
+    position: relative;
+    width: 140px;
+    height: 120px;
+    background: var(--cat-black);
+    border-radius: 50% 50% 40% 40%;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Ears with Pink Insides */
+.ear {
+    position: absolute;
+    top: -10px;
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 40px solid var(--cat-black);
+}
+.ear::after { /* Inner Ear */
     content: '';
+    position: absolute;
+    left: -10px;
+    top: 15px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid var(--nose-pink);
+}
+.ear.left { left: 5px; transform: rotate(-20deg); }
+.ear.right { right: 5px; transform: rotate(20deg); }
+
+/* The White "Tuxedo" Blaze/Muzzle */
+.muzzle {
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 50px;
-    height: 40px;
+    width: 60px;
+    height: 50px;
     background: var(--tux-white);
-    border-radius: 50% 50% 0 0;
+    border-radius: 50% 50% 10px 10px;
+    z-index: 1;
 }
 
-.ear {
+/* Nose & Whiskers */
+.nose {
     position: absolute;
-    top: -15px;
-    width: 0;
-    height: 0;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-bottom: 30px solid var(--cat-color);
-}
-.ear.left { left: 10px; transform: rotate(-15deg); }
-.ear.right { right: 10px; transform: rotate(15deg); }
-
-.eye {
-    position: absolute;
-    top: 35px;
-    width: 15px;
-    height: 15px;
-    background: var(--eye-color);
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 8px;
+    background: var(--nose-pink);
     border-radius: 50%;
     z-index: 2;
 }
-.eye.left { left: 30px; }
-.eye.right { right: 30px; }
 
-.tear {
+.whiskers {
     position: absolute;
-    top: 50px;
-    width: 8px;
-    height: 12px;
-    background: #a2d2ff;
-    border-radius: 0 50% 50% 50%;
-    transform: rotate(45deg);
-    display: none;
-    z-index: 3;
+    top: 15px;
+    width: 100%;
 }
-
-.name-tag {
-    text-align: center;
-    color: white;
+.whiskers::before, .whiskers::after {
+    content: '————';
+    position: absolute;
     font-size: 10px;
-    margin-top: 75px;
-    position: relative;
-    z-index: 5;
+    color: #444;
+    letter-spacing: -2px;
+}
+.whiskers::before { left: -30px; transform: rotate(10deg); }
+.whiskers::after { right: -30px; transform: rotate(-10deg); }
+
+/* Eyes */
+.eye {
+    position: absolute;
+    top: 40px;
+    width: 18px;
+    height: 18px;
+    background: var(--eye-green);
+    border-radius: 50%;
+    z-index: 2;
+    transition: 0.3s;
+}
+.eye.left { left: 35px; }
+.eye.right { right: 35px; }
+
+/* Sad/Happy States */
+.sad .eye { height: 4px; border-radius: 2px; background: #555; }
+.happy .eye { background: #ff4d6d; transform: scale(1.3); }
+
+/* Names */
+.name {
+    position: absolute;
+    bottom: -25px;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    color: #555;
+    text-transform: uppercase;
+    font-size: 14px;
 }
 
-/* States */
-.sad .eye { height: 3px; background: #555; }
-.sad .tear { display: block; animation: drip 1s infinite; }
-.happy .eye { background: #ff4d6d; border-radius: 50% 50% 0 0; transform: scale(1.5); }
-
-@keyframes drip {
-    0% { transform: translateY(0) rotate(45deg); opacity: 1; }
-    100% { transform: translateY(20px) rotate(45deg); opacity: 0; }
+/* UI Elements */
+h1 { color: #c9184a; text-align: center; margin-bottom: 20px; }
+.btn-container { display: flex; gap: 20px; position: relative; height: 60px; }
+button { 
+    padding: 15px 30px; 
+    font-size: 1.1rem; 
+    border: none; 
+    border-radius: 50px; 
+    cursor: pointer; 
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
-
-h1 { color: #c9184a; }
-.btn-container { display: flex; gap: 20px; position: relative; height: 60px; align-items: center; }
-button { padding: 12px 25px; font-size: 1.1rem; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; }
-#yesBtn { background: #ff4d6d; color: white; z-index: 10; }
-#noBtn { background: #888; color: white; position: absolute; left: 100px; transition: 0.1s; }
+#yesBtn { background: #ff4d6d; color: white; }
+#noBtn { background: #adb5bd; color: white; position: absolute; left: 140px; }

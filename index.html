@@ -4,7 +4,192 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Valentine</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+            --cat-black: #1a1a1b;
+            --tux-white: #ffffff;
+            --nose-pink: #ffb7c5;
+            --eye-green: #c1ff72;
+            --bg-color: #fff0f3;
+            --heart-red: #ff4d6d;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        .cat-duo {
+            display: flex;
+            gap: 60px;
+            margin-bottom: 50px;
+        }
+
+        /* --- CSS TUXEDO CAT DESIGN --- */
+        .cat {
+            position: relative;
+            width: 140px;
+            height: 120px;
+            background: var(--cat-black);
+            border-radius: 50% 50% 40% 40%;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .ear {
+            position: absolute;
+            top: -12px;
+            width: 0;
+            height: 0;
+            border-left: 22px solid transparent;
+            border-right: 22px solid transparent;
+            border-bottom: 45px solid var(--cat-black);
+        }
+
+        .ear::after {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 15px;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-bottom: 25px solid var(--nose-pink);
+            opacity: 0.4;
+        }
+
+        .ear.left { left: 5px; transform: rotate(-22deg); }
+        .ear.right { right: 5px; transform: rotate(22deg); }
+
+        .eye {
+            position: absolute;
+            top: 45px;
+            width: 20px;
+            height: 20px;
+            background: var(--eye-green);
+            border-radius: 50%;
+            z-index: 5;
+            transition: all 0.3s ease;
+        }
+
+        .eye::after {
+            content: '';
+            position: absolute;
+            left: 40%;
+            top: 10%;
+            width: 4px;
+            height: 80%;
+            background: #000;
+            border-radius: 20px;
+        }
+
+        .eye.left { left: 35px; }
+        .eye.right { right: 35px; }
+
+        .muzzle {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 55px;
+            background: var(--tux-white);
+            border-radius: 50% 50% 20% 20%;
+            z-index: 1;
+        }
+
+        .nose {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px;
+            height: 10px;
+            background: var(--nose-pink);
+            border-radius: 50%;
+            z-index: 6;
+        }
+
+        .whiskers {
+            position: absolute;
+            top: 18px;
+            width: 100%;
+        }
+
+        .whiskers::before, .whiskers::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .whiskers::before { left: -35px; transform: rotate(10deg); box-shadow: 0 8px #ddd, 0 -8px #ddd; }
+        .whiskers::after { right: -35px; transform: rotate(-10deg); box-shadow: 0 8px #ddd, 0 -8px #ddd; }
+
+        .name {
+            position: absolute;
+            bottom: -35px;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            color: #d32f2f;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .tear {
+            position: absolute;
+            top: 60px;
+            width: 10px;
+            height: 15px;
+            background: #a2d2ff;
+            border-radius: 0 50% 50% 50%;
+            transform: rotate(45deg);
+            display: none;
+            z-index: 10;
+        }
+
+        /* --- INTERACTIVE STATES --- */
+        .sad .eye { height: 4px; background: #555; margin-top: 8px; }
+        .sad .eye::after { display: none; }
+        .sad .tear { display: block; animation: drip 1.5s infinite; }
+        
+        .happy { transform: scale(1.1) translateY(-10px); }
+        .happy .eye { background: var(--heart-red); transform: scale(1.4); }
+        .happy .eye::after { display: none; }
+
+        @keyframes drip {
+            0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+            100% { transform: translateY(40px) rotate(45deg); opacity: 0; }
+        }
+
+        h1 { color: #c9184a; text-align: center; font-size: 2.2rem; margin-bottom: 30px; }
+
+        .btn-container { display: flex; gap: 30px; position: relative; height: 80px; align-items: center; }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, background 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        #yesBtn { background: var(--heart-red); color: white; }
+        #noBtn { background: #adb5bd; color: white; position: absolute; left: 160px; transition: 0.15s ease-out; }
+
+    </style>
 </head>
 <body>
 
@@ -12,15 +197,23 @@
         <div class="cat" id="billie">
             <div class="ear left"></div><div class="ear right"></div>
             <div class="eye left"></div><div class="eye right"></div>
-            <div class="tear" style="left: 32px;"></div>
-            <div class="name-tag">BILLIE</div>
+            <div class="tear" style="left: 40px;"></div>
+            <div class="muzzle">
+                <div class="nose"></div>
+                <div class="whiskers"></div>
+            </div>
+            <div class="name">Billie</div>
         </div>
 
         <div class="cat" id="sky">
             <div class="ear left"></div><div class="ear right"></div>
             <div class="eye left"></div><div class="eye right"></div>
-            <div class="tear" style="right: 32px;"></div>
-            <div class="name-tag">SKY</div>
+            <div class="tear" style="right: 40px;"></div>
+            <div class="muzzle">
+                <div class="nose"></div>
+                <div class="whiskers"></div>
+            </div>
+            <div class="name">Sky</div>
         </div>
     </div>
 
@@ -31,6 +224,48 @@
         <button id="noBtn">No</button>
     </div>
 
-    <script src="js/script.js"></script>
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const billie = document.getElementById('billie');
+        const sky = document.getElementById('sky');
+        const mainText = document.getElementById('mainText');
+
+        let yesScale = 1;
+
+        // No button runs away
+        noBtn.addEventListener('mouseover', () => {
+            const maxX = window.innerWidth - noBtn.offsetWidth;
+            const maxY = window.innerHeight - noBtn.offsetHeight;
+            
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        });
+
+        // If she managed to click No (the guilt trip)
+        noBtn.addEventListener('click', () => {
+            billie.classList.add('sad');
+            sky.classList.add('sad');
+            mainText.innerText = "You're making Billie and Sky cry... 😿";
+            yesScale += 0.5;
+            yesBtn.style.transform = `scale(${yesScale})`;
+        });
+
+        // When she says Yes
+        yesBtn.addEventListener('click', () => {
+            billie.classList.remove('sad');
+            sky.classList.remove('sad');
+            billie.classList.add('happy');
+            sky.classList.add('happy');
+            
+            mainText.innerText = "YAY! Billie & Sky are so happy! ❤️";
+            noBtn.style.display = 'none';
+            yesBtn.style.transform = "scale(1)";
+            yesBtn.innerText = "I love you!";
+        });
+    </script>
 </body>
 </html>
