@@ -171,7 +171,7 @@
             100% { transform: translateY(40px) rotate(45deg); opacity: 0; }
         }
 
-        h1 { color: #c9184a; text-align: center; font-size: 2.2rem; margin-bottom: 30px; transition: 0.3s; }
+        h1 { color: #c9184a; text-align: center; font-size: 2.2rem; margin-bottom: 30px; transition: 0.3s; z-index: 10; }
 
         .btn-container { display: flex; gap: 30px; position: relative; height: 80px; align-items: center; }
 
@@ -188,6 +188,32 @@
 
         #yesBtn { background: var(--heart-red); color: white; z-index: 100; }
         #noBtn { background: #adb5bd; color: white; position: absolute; left: 160px; transition: 0.15s ease-out; }
+
+        /* --- HEART CONFETTI STYLE --- */
+        .confetti-heart {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: var(--heart-red);
+            transform: rotate(45deg);
+            animation: fall linear forwards;
+            z-index: 1;
+        }
+        .confetti-heart::before, .confetti-heart::after {
+            content: "";
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: var(--heart-red);
+            border-radius: 50%;
+        }
+        .confetti-heart::before { left: -8px; }
+        .confetti-heart::after { top: -8px; }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(45deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(405deg); opacity: 0; }
+        }
 
     </style>
 </head>
@@ -233,21 +259,17 @@
 
         let yesScale = 1;
         let dodgeCount = 0;
-        const maxDodges = 5; // The button will run away 5 times, then stay still.
+        const maxDodges = 5;
 
-        // "No" button runs away
+        // No button runs away
         noBtn.addEventListener('mouseover', () => {
             if (dodgeCount < maxDodges) {
                 const maxX = window.innerWidth - noBtn.offsetWidth;
                 const maxY = window.innerHeight - noBtn.offsetHeight;
-                
-                // Keep it somewhat near the center area so it doesn't disappear
                 const randomX = Math.floor(Math.random() * (maxX * 0.8)) + (maxX * 0.1);
                 const randomY = Math.floor(Math.random() * (maxY * 0.8)) + (maxY * 0.1);
-
                 noBtn.style.left = randomX + 'px';
                 noBtn.style.top = randomY + 'px';
-                
                 dodgeCount++;
             }
         });
@@ -258,13 +280,25 @@
             sky.classList.add('sad');
             billie.classList.remove('happy');
             sky.classList.remove('happy');
-            
             mainText.innerText = "You're making Billie and Sky cry... 😿";
-            
-            // Make the YES button grow massively
             yesScale += 1.2;
             yesBtn.style.transform = `scale(${yesScale})`;
         });
+
+        // Confetti Function
+        function startConfetti() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('confetti-heart');
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+                heart.style.opacity = Math.random();
+                document.body.appendChild(heart);
+                
+                // Remove heart after animation
+                setTimeout(() => heart.remove(), 5000);
+            }, 150);
+        }
 
         // When she says Yes
         yesBtn.addEventListener('click', () => {
@@ -277,6 +311,8 @@
             noBtn.style.display = 'none';
             yesBtn.style.transform = "scale(1)";
             yesBtn.innerText = "I love you!";
+            
+            startConfetti();
         });
     </script>
 </body>
