@@ -1,0 +1,23 @@
+# --- API & Web Server ---
+fastapi
+uvicorn[standard]
+pydantic
+requests
+
+# --- Document Processing ---
+docx2pdf
+pymupdf
+
+# --- LangChain & AI Ecosystem ---
+langchain
+langchain-community
+langchain-core
+langchain-text-splitters
+langchain-chroma
+chromadb
+langchain-groq            # NEW: For Groq API
+langchain-huggingface     # NEW: For local embeddings
+sentence-transformers     # NEW: Required by HuggingFaceEmbeddings
+
+# --- Utilities ---
+python-multipart

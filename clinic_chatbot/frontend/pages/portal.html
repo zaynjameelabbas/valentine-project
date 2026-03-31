@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Portal | Dr. Toor</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="minimal-dark" style="overflow: hidden;">
+
+    <img src="../assets/new.png" alt="" class="bison-watermark" aria-hidden="true">
+
+    <div id="selection-overlay" class="selection-overlay minimal-dark">
+        
+        <a href="../index.html" class="minimal-back-btn" style="position: absolute; top: 40px; left: 40px; margin: 0;">
+            <i class="fa-solid fa-arrow-left-long"></i> Back
+        </a>
+
+        <div class="selection-card-wrapper">
+            <header class="referral-header" style="margin-bottom: 50px;">
+                <h1 style="font-size: 2.5rem;">PATIENT <span>PORTAL</span></h1>
+                <div class="accent-line"></div>
+                <p class="hub-subtitle" style="color: #888890; margin-top: 15px;">Select your upcoming or completed procedure to access your personalized recovery AI.</p>
+            </header>
+
+            <div class="patient-selection-grid">
+                <button class="patient-procedure-card" onclick="initPortal('Lumbar_Discectomy')">
+                    <span class="spine-region lumbar">Lumbar</span>
+                    <h3>Discectomy</h3>
+                    <p>Removes herniated disc material pressing on a nerve root to relieve lower back and leg pain.</p>
+                </button>
+
+                <button class="patient-procedure-card" onclick="initPortal('Lumbar_Decompression')">
+                    <span class="spine-region lumbar">Lumbar</span>
+                    <h3>Decompression</h3>
+                    <p>Creates space in the spinal canal to relieve pressure on nerves, easing pain and numbness.</p>
+                </button>
+
+                <button class="patient-procedure-card" onclick="initPortal('Lumbar_Decompression_Fusion')">
+                    <span class="spine-region lumbar">Lumbar</span>
+                    <h3>Decompression & Fusion</h3>
+                    <p>Relieves nerve pressure and stabilizes the lower spine by fusing vertebrae together.</p>
+                </button>
+
+                <button class="patient-procedure-card" onclick="initPortal('Cervical_ACDF')">
+                    <span class="spine-region cervical">Cervical</span>
+                    <h3>ACDF</h3>
+                    <p>Relieves neck and arm pain by removing a damaged disc and fusing the neck bones.</p>
+                </button>
+
+                <button class="patient-procedure-card" onclick="initPortal('Cervical_Decompression_Fusion')">
+                    <span class="spine-region cervical">Cervical</span>
+                    <h3>Decompression & Fusion</h3>
+                    <p>Relieves nerve pressure and stabilizes the neck by fusing cervical vertebrae together.</p>
+                </button>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="app-container" id="app-interface" style="display: none;">
+        
+        <aside class="left-sidebar minimal-panel" id="left-sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">Toor <span>Spine Surgery</span></h2>
+                <button class="icon-btn" id="close-sidebar"><i class="fa-solid fa-arrow-left"></i></button>
+            </div>
+
+            <button class="new-chat-btn minimal-btn" id="new-chat-btn">
+                <i class="fa-solid fa-plus"></i> New Chat
+            </button>
+
+            <div class="history-section custom-scrollbar">
+                <p class="section-title">Chat History</p>
+                <div id="history-list" class="history-list"></div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button class="exit-btn minimal-btn-outline" onclick="window.location.href='../index.html'">
+                    <i class="fa-solid fa-right-from-bracket"></i> Exit Portal
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header minimal-header-bar">
+                <div class="header-left">
+                    <button id="mobile-menu-btn" class="mobile-menu-toggle icon-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <button class="icon-btn" id="open-sidebar" style="display: none;">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="protocol-selector-wrapper">
+                    <select id="protocol-select" class="modern-select">
+                        <option value="Lumbar_Discectomy">Protocol: Lumbar Discectomy</option>
+                        <option value="Lumbar_Decompression">Protocol: Lumbar Decompression</option>
+                        <option value="Lumbar_Decompression_Fusion">Protocol: Lumbar Decomp & Fusion</option>
+                        <option value="Cervical_ACDF">Protocol: Cervical ACDF</option>
+                        <option value="Cervical_Decompression_Fusion">Protocol: Cervical Decomp & Fusion</option>
+                    </select>
+                </div>
+                
+                <button class="minimal-btn-outline" id="toggle-pdf">
+                    <i class="fa-regular fa-file-pdf"></i> View Protocol
+                </button>
+            </header>
+
+            <div class="chat-container">
+                <div class="intro-screen" id="intro-screen">
+                    <h1>System <span>Ready</span></h1>
+                    <p>Accessing your personalized, evidence-based orthopaedic recovery protocol.</p>
+                    
+                    <div class="suggestion-cards">
+                        <div class="suggestion-card" onclick="document.getElementById('user-input').value='What are my lifting restrictions today?';">
+                            <i class="fa-solid fa-dumbbell"></i>
+                            <p>Lifting Limits</p>
+                        </div>
+                        <div class="suggestion-card" onclick="document.getElementById('user-input').value='When can I return to driving?';">
+                            <i class="fa-solid fa-car"></i>
+                            <p>Driving Guidelines</p>
+                        </div>
+                        <div class="suggestion-card" onclick="document.getElementById('user-input').value='What is the protocol for showering?';">
+                            <i class="fa-solid fa-shower"></i>
+                            <p>Incision Care</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="chat-window" class="chat-window custom-scrollbar"></div>
+            </div>
+
+            <div class="input-wrapper">
+                <form id="chat-form" class="input-area minimal-input-form">
+                    <input type="text" id="user-input" placeholder="Ask about your recovery..." required>
+                    <button type="submit" class="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </main>
+
+        <aside class="right-sidebar minimal-panel collapsed" id="right-sidebar">
+            <div class="pane-header">
+                <h3>Clinical Document</h3>
+                <button class="icon-btn" id="close-pdf"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="pdf-container">
+                <iframe id="pdf-view" src="" width="100%" height="100%" frameborder="0"></iframe>
+            </div>
+        </aside>
+
+    </div>
+    
+    <script src="../app.js"></script>
+</body>
+</html>

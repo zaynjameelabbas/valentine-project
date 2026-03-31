@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Dashboard | Toor Clinic</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body style="overflow: hidden;">
+
+    <div id="selection-overlay" class="selection-overlay">
+        <div class="selection-card">
+            <img src="assets/new_blue.png" alt="Toor Clinic" style="height: 60px; margin: 0 auto 30px; display: block;">
+            <h1>Clinical Protocol</h1>
+            <p>Select your surgical procedure</p>
+            <div class="selection-grid">
+                <button class="selection-btn" onclick="initPortal('ACDF')">
+                    <i class="fa-solid fa-bone"></i>
+                    <h3>ACDF</h3>
+                </button>
+                <button class="selection-btn" onclick="initPortal('Lumbar_Fusion')">
+                    <i class="fa-solid fa-link"></i>
+                    <h3>Lumbar Fusion</h3>
+                </button>
+                <button class="selection-btn" onclick="initPortal('Microdiscectomy')">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <h3>Microdiscectomy</h3>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container" id="app-interface" style="display: none;">
+        
+        <aside class="left-sidebar" id="left-sidebar">
+            <div class="sidebar-header">
+                <img src="assets/new_white.png" alt="Logo" class="sidebar-logo"> 
+                <button class="icon-btn" id="close-sidebar"><i class="fa-solid fa-arrow-left"></i></button>
+            </div>
+
+            <button class="new-chat-btn" id="new-chat-btn">
+                <i class="fa-solid fa-plus"></i> New Chat
+            </button>
+
+            <div class="history-section">
+                <p class="section-title">Chat History</p>
+                <div id="history-list" class="history-list"></div>
+            </div>
+
+            <div class="sidebar-footer" style="margin-top: auto; padding-top: 20px;">
+                <button class="exit-btn" onclick="window.location.href='index.html'">
+                    <i class="fa-solid fa-right-from-bracket"></i> Exit Session
+                </button>
+            </div>
+        </aside>
+
+        <div class="resizer" id="drag-left"></div>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <button id="mobile-menu-btn" class="mobile-menu-toggle">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <button class="icon-btn" id="open-sidebar" style="color: var(--um-navy); display: none;"><i class="fa-solid fa-bars"></i></button>
+                    
+                    <select id="protocol-select" class="modern-select">
+                        <option value="ACDF">Protocol: ACDF (Cervical)</option>
+                        <option value="Lumbar_Fusion">Protocol: Lumbar Fusion</option>
+                        <option value="Microdiscectomy">Protocol: Microdiscectomy</option>
+                    </select>
+                </div>
+                
+                <button class="secondary-btn" id="toggle-pdf">
+                    <i class="fa-regular fa-file-pdf"></i> View Source Data
+                </button>
+            </header>
+
+            <div class="chat-container">
+                <div class="intro-screen" id="intro-screen">
+                    <h1>System <span>Ready</span>.</h1>
+                    <p>Accessing evidence-based orthopaedic recovery protocols.</p>
+                    
+                    <div class="suggestion-cards">
+                        <div class="suggestion-card" onclick="document.getElementById('user-input').value='What are the lifting restrictions?';">
+                            <i class="fa-solid fa-dumbbell"></i>
+                            <p>Lifting Limits</p>
+                        </div>
+                        <div class="suggestion-card" onclick="document.getElementById('user-input').value='When can I return to high-impact sport?';">
+                            <i class="fa-solid fa-person-running"></i>
+                            <p>Return to Sport</p>
+                        </div>
+                        <div class="suggestion-card" onclick="document.getElementById('user-input').value='What cardiovascular exercises are approved?';">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                            <p>Cardio Guidelines</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="chat-window" class="chat-window"></div>
+            </div>
+
+            <div class="input-wrapper">
+                <form id="chat-form" class="input-area">
+                    <input type="text" id="user-input" placeholder="Enter clinical query..." required>
+                    <button type="submit" class="send-btn"><i class="fa-solid fa-arrow-right"></i></button>
+                </form>
+            </div>
+        </main>
+
+        <div class="resizer" id="drag-right"></div>
+
+        <aside class="right-sidebar collapsed" id="right-sidebar">
+            <div class="pane-header">
+                <h3>Official Protocol Document</h3>
+                <button style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size: 1.2rem;" id="close-pdf"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="pdf-container">
+                <iframe id="pdf-view" src="" width="100%" height="100%" frameborder="0"></iframe>
+            </div>
+        </aside>
+
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

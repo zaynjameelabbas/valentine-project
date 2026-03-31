@@ -1,0 +1,613 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    /* Hybrid Elite Palette */
+    --um-navy: #002D47;       /* Ocean Navy - Deep, athletic, authoritative */
+    --um-navy-dark: #001F33;  /* Deeper shade for gradients/hovers */
+    --um-gold: #DDA74F;       /* Refined Gold - Sophisticated, metallic accent */
+    --um-gold-hover: #C59342;
+    
+    /* The Canvas (Miro-inspired clean workspace) */
+    --bg-canvas: #FFFFFF;     /* Pure white for the main app/reading areas */
+    --bg-panel: #F8FAFC;      /* Soft slate-white for secondary backgrounds */
+    
+    /* Text & Lines */
+    --text-dark: #0F172A;     /* Soft black for standard reading */
+    --text-light: #FFFFFF;    /* Crisp white for dark panels */
+    --text-muted: #64748B;    /* Slate grey for secondary info */
+    --border-subtle: #E2E8F0; /* Clean, almost invisible borders */
+    
+    --shadow-float: 0 10px 40px -10px rgba(0, 45, 71, 0.15);
+    --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-canvas);
+    color: var(--text-dark);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--um-navy); }
+
+/* =========================================
+   1. SHARED COMPONENTS & NAVBAR
+   ========================================= */
+.navbar-floating {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 2rem; background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-subtle);
+    position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow-card);
+}
+.logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo-img { height: 42px; width: auto; }
+.logo-text { font-weight: 800; font-size: 1.1rem; color: var(--um-navy); line-height: 1.1; text-transform: uppercase; letter-spacing: 0.5px; }
+.logo-text span { color: var(--um-gold); font-weight: 600; }
+
+.nav-links-wrapper { display: flex; align-items: center; gap: 3rem; }
+.nav-links { display: flex; list-style: none; gap: 2rem; margin: 0; }
+.nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; font-weight: 600; transition: var(--transition); text-transform: uppercase; letter-spacing: 1px; }
+.nav-links a:hover { color: var(--um-navy); }
+
+.accent-btn {
+    background: var(--um-gold); color: #000000 !important; border: none;
+    padding: 0.75rem 1.5rem; border-radius: 4px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
+    text-decoration: none; transition: var(--transition); font-size: 0.85rem;
+}
+.accent-btn:hover { background: var(--um-gold-hover); transform: translateY(-1px); box-shadow: 0 4px 15px rgba(221, 167, 79, 0.3); }
+
+.secondary-btn {
+    background: transparent; border: 1px solid var(--border-subtle);
+    padding: 0.75rem 1.5rem; border-radius: 4px; font-weight: 600;
+    cursor: pointer; transition: var(--transition); color: var(--text-dark);
+}
+.secondary-btn:hover { border-color: var(--um-navy); color: var(--um-navy); background: var(--bg-panel); }
+
+.btn-white-border { border-color: rgba(255,255,255,0.3); color: white; text-decoration: none; display: inline-block; padding: 1rem 2rem; border-radius: 4px; font-weight: 600; transition: var(--transition); }
+.btn-white-border:hover { border-color: var(--um-gold); color: var(--um-gold); background: rgba(255,255,255,0.05); }
+
+/* =========================================
+   2. LANDING PAGE (index.html)
+   ========================================= */
+.container { max-width: 1400px; margin: 0 auto; width: 100%; }
+
+.section-gradient-navy { background: linear-gradient(135deg, var(--um-navy), var(--um-navy-dark)); color: var(--text-light); }
+.hero { padding: 120px 5%; overflow: hidden; }
+.hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.eyebrow { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 20px; display: block; }
+.eyebrow-gold { color: var(--um-gold); }
+.eyebrow-navy { color: var(--um-navy); }
+
+.hero h1 { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.1; margin-bottom: 2rem; letter-spacing: -1px; }
+.hero h1 strong { font-weight: 800; color: white; }
+.hero p { font-size: 1.15rem; color: rgba(255,255,255,0.8); margin-bottom: 3rem; max-width: 500px; font-weight: 400; }
+
+.hero-visual { display: flex; justify-content: flex-end; position: relative; }
+.hero-bison-logo { height: 450px; width: auto; opacity: 0.35; mix-blend-mode: screen; transform: scale(1.2) translateX(10%); pointer-events: none; }
+
+.section { padding: 100px 5%; }
+.section-light { background: var(--bg-canvas); }
+.section-hybrid { background: var(--bg-panel); border-top: 1px solid var(--border-subtle); }
+
+.muted-text { color: var(--text-muted); font-weight: 300; }
+.about-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 80px; align-items: center; }
+.about-text h2 { font-size: 2.8rem; color: var(--um-navy); margin-bottom: 25px; font-weight: 800; letter-spacing: -1px; }
+.lead-text { font-size: 1.2rem; color: var(--text-dark); font-weight: 500; margin-bottom: 15px; }
+
+.credentials-list { list-style: none; margin-top: 30px; }
+.credentials-list li { margin-bottom: 15px; font-weight: 600; color: var(--text-dark); display: flex; align-items: center; gap: 12px; }
+.credentials-gold { color: var(--um-gold); font-size: 1.2rem; }
+
+/* --- FLOATING HEADSHOT --- */
+.about-image-floating {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+    /* This ensures he doesn't get too tall on huge monitors */
+    max-height: 600px; 
+}
+
+.about-image-floating img {
+    width: 110%; /* Makes him look larger and more "heroic" */
+    height: auto;
+    display: block;
+    /* Optional: Subtle drop shadow to give depth against the background */
+    filter: drop-shadow(0 20px 50px rgba(0, 45, 71, 0.15));
+    
+    /* This creates a soft fade at the bottom so he doesn't just "stop" */
+    mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+    
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Subtle parallax-style lift on hover */
+.about-image-floating:hover img {
+    transform: translateY(-10px) scale(1.02);
+}
+
+/* Adjust the grid gap if he's overlapping text too much */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr; /* Adjusted ratio */
+    gap: 40px;
+    align-items: center;
+}
+
+.section-header { text-align: center; margin-bottom: 60px; }
+.section-header h2 { font-size: 2.5rem; color: var(--um-navy); margin-bottom: 15px; font-weight: 800; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+.procedure-card { background: var(--bg-canvas); padding: 40px; border-radius: 8px; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-card); transition: var(--transition); }
+.procedure-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-float); border-color: var(--um-navy); }
+.procedure-gold { font-size: 2rem; color: var(--um-gold); margin-bottom: 25px; }
+.procedure-card h3 { font-size: 1.3rem; color: var(--um-navy); margin-bottom: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.site-footer { padding: 40px 5%; text-align: center; border-top: 1px solid var(--border-subtle); background: var(--bg-canvas); }
+.small-text { font-size: 0.8rem; color: var(--text-muted); margin-top: 10px; }
+
+/* =========================================
+   3. PATIENT PORTAL (portal.html)
+   ========================================= */
+.app-container { display: flex; height: 100vh; width: 100vw; overflow: hidden; background: var(--bg-canvas); }
+.resizer { width: 1px; background-color: var(--border-subtle); cursor: col-resize; transition: 0.2s; z-index: 100; flex-shrink: 0; }
+.resizer:hover, .resizer.dragging { background-color: var(--um-gold); width: 3px; }
+
+/* --- LEFT SIDEBAR (The Dark Anchor) --- */
+.left-sidebar { width: 300px; flex-shrink: 0; background-color: var(--um-navy); color: white; display: flex; flex-direction: column; padding: 25px; z-index: 10; }
+.sidebar-header { margin-bottom: 40px; display: flex; justify-content: space-between; align-items: center; }
+.sidebar-logo { height: 35px; filter: brightness(0) invert(1); }
+.icon-btn { background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; opacity: 0.7; transition: 0.2s; }
+.icon-btn:hover { opacity: 1; color: var(--um-gold); }
+
+.new-chat-btn { width: 100%; background: var(--um-gold); color: #000; border: none; padding: 12px; border-radius: 4px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; margin-bottom: 30px; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 8px; }
+.new-chat-btn:hover { background: var(--um-gold-hover); }
+
+.history-section { flex: 1; overflow-y: auto; }
+.section-title { font-size: 0.7rem; text-transform: uppercase; color: rgba(255,255,255,0.5); font-weight: 700; margin-bottom: 20px; letter-spacing: 1px; }
+.history-item { padding: 12px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 0.85rem; color: #E2E8F0; margin-bottom: 4px; transition: var(--transition); }
+.history-item:hover { background: rgba(255,255,255,0.05); color: white; }
+.history-item i { color: var(--um-gold); opacity: 0.7; }
+
+/* --- MAIN CONTENT (The Clinical Canvas) --- */
+.main-content { flex: 1; display: flex; flex-direction: column; background: var(--bg-canvas); position: relative; }
+
+.top-header { display: flex; align-items: center; padding: 15px 30px; border-bottom: 1px solid var(--border-subtle); gap: 20px; background: var(--bg-panel); }
+.modern-select { padding: 10px 0; border: none; border-bottom: 2px solid var(--text-muted); background: transparent; color: var(--um-navy); font-size: 1rem; font-weight: 700; cursor: pointer; outline: none; width: 320px; transition: 0.2s; }
+.modern-select:focus { border-bottom-color: var(--um-gold); }
+
+.chat-container { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
+.intro-screen { margin: auto; text-align: center; max-width: 600px; padding: 40px; }
+.intro-screen h1 { font-size: 2.2rem; font-weight: 300; margin-bottom: 10px; color: var(--um-navy); letter-spacing: -0.5px; }
+.intro-screen h1 span { color: var(--um-gold); font-weight: 600; }
+.intro-screen p { color: var(--text-muted); margin-bottom: 40px; }
+
+.suggestion-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+.suggestion-card { background: var(--bg-panel); border: 1px solid var(--border-subtle); padding: 20px; border-radius: 8px; cursor: pointer; transition: var(--transition); display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.suggestion-card i { color: var(--um-gold); font-size: 1.2rem; }
+.suggestion-card p { font-size: 0.85rem; font-weight: 600; color: var(--um-navy); text-transform: uppercase; letter-spacing: 0.5px; margin: 0; }
+.suggestion-card:hover { border-color: var(--um-navy); box-shadow: var(--shadow-card); transform: translateY(-2px); }
+
+/* Structured Chat Bubbles */
+.chat-window { flex: 1; padding: 40px; display: flex; flex-direction: column; gap: 25px; max-width: 900px; margin: 0 auto; width: 100%; }
+.message { max-width: 85%; padding: 20px; border-radius: 8px; line-height: 1.6; font-size: 0.95rem; }
+.user-message { align-self: flex-end; background: var(--bg-panel); border: 1px solid var(--border-subtle); color: var(--text-dark); font-weight: 500; }
+.bot-message { align-self: flex-start; background: var(--bg-canvas); border: 1px solid var(--border-subtle); border-left: 4px solid var(--um-navy); color: var(--text-dark); box-shadow: var(--shadow-card); }
+
+/* Input Area */
+.input-wrapper { padding: 0 40px 30px; max-width: 900px; margin: 0 auto; width: 100%; }
+.input-area { display: flex; align-items: center; background: var(--bg-panel); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 5px 10px 5px 20px; transition: var(--transition); }
+.input-area:focus-within { border-color: var(--um-navy); box-shadow: var(--shadow-card); }
+input { flex: 1; border: none; padding: 15px 0; font-size: 1rem; background: transparent; outline: none; color: var(--text-dark); }
+.send-btn { background: var(--um-gold); color: #000; border: none; width: 40px; height: 40px; border-radius: 4px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; }
+.send-btn:hover { background: var(--um-gold-hover); }
+
+/* --- RIGHT SIDEBAR (PDF Viewer) --- */
+.right-sidebar { width: 500px; flex-shrink: 0; background: var(--bg-panel); border-left: 1px solid var(--border-subtle); display: flex; flex-direction: column; transition: 0.3s ease; }
+.right-sidebar.collapsed { width: 0 !important; border: none; overflow: hidden; }
+.pane-header { padding: 20px 25px; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; background: var(--bg-canvas); }
+.pane-header h3 { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--um-navy); margin: 0; }
+.pdf-container { flex: 1; background: #E2E8F0; }
+
+.hidden { display: none !important; }
+
+/* Selection Overlay (Deep Navy Focus) */
+.selection-overlay { position: fixed; inset: 0; background: rgba(0, 45, 71, 0.95); backdrop-filter: blur(10px); z-index: 2000; display: flex; align-items: center; justify-content: center; }
+.selection-card { background: var(--bg-canvas); padding: 60px; border-radius: 12px; text-align: center; max-width: 900px; box-shadow: var(--shadow-float); }
+.selection-card h1 { font-size: 2.2rem; font-weight: 300; margin-bottom: 10px; color: var(--um-navy); letter-spacing: -0.5px; }
+.selection-card p { color: var(--text-muted); margin-bottom: 40px; }
+.selection-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+.selection-btn { background: var(--bg-panel); border: 1px solid var(--border-subtle); padding: 40px 20px; border-radius: 8px; cursor: pointer; transition: var(--transition); display: flex; flex-direction: column; align-items: center; gap: 15px; }
+.selection-btn:hover { background: var(--bg-canvas); border-color: var(--um-navy); box-shadow: var(--shadow-card); transform: translateY(-3px); }
+.selection-btn i { color: var(--um-gold); font-size: 1.8rem; }
+.selection-btn h3 { font-size: 1rem; color: var(--um-navy); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; margin: 0; }
+
+/* Typing Indicator */
+.typing-indicator { display: flex; gap: 5px; padding: 5px; align-items: center; }
+.typing-indicator span { width: 8px; height: 8px; background-color: var(--um-navy); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; opacity: 0.5; }
+.typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+.typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+@keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+/* Update your existing .left-sidebar and add the collapsed state */
+.left-sidebar { 
+    width: 300px; flex-shrink: 0; background-color: var(--um-navy); color: white; 
+    display: flex; flex-direction: column; padding: 25px; z-index: 10;
+    transition: width 0.3s ease, padding 0.3s ease; /* Smooth sliding */
+}
+
+/* This hides the left panel when the back arrow is clicked */
+.left-sidebar.collapsed {
+    width: 0 !important;
+    min-width: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    overflow: hidden;
+    border: none;
+}
+
+/* Update Chat Bubbles */
+.user-message { 
+    align-self: flex-end; 
+    background: #FFFFFF; /* White background */
+    border: 1px solid var(--border-subtle); 
+    color: var(--text-dark); 
+    font-weight: 500; 
+}
+
+.bot-message { 
+    align-self: flex-start; 
+    background: #FFFFFF; /* White background */
+    border: 1px solid var(--border-subtle); 
+    border-left: 4px solid var(--um-navy); /* Thick Navy Border */
+    color: var(--text-dark); 
+    box-shadow: var(--shadow-card); 
+}
+
+/* --- NEW EXIT BUTTON --- */
+.exit-btn {
+    width: 100%;
+    background: var(--um-navy); /* Base navy */
+    color: white;
+    border: 1px solid var(--um-gold); /* Gold outline */
+    padding: 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.85rem;
+}
+
+.exit-btn:hover {
+    background: #00456B; /* Noticeably lighter navy on hover */
+    box-shadow: 0 4px 15px rgba(221, 167, 79, 0.15); /* Slight gold glow */
+}
+
+/* --- ACTIVE CHAT HISTORY STATE --- */
+.history-item.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-left: 3px solid var(--um-gold);
+    padding-left: 9px; /* Compensate for the 3px border to keep text aligned */
+}
+
+/* --- DESKTOP DEFAULT: HIDE THE HAMBURGER --- */
+.mobile-menu-toggle {
+    display: none; 
+}
+
+/* =========================================
+   MOBILE RESPONSIVE 
+   ========================================= */
+   @media (max-width: 768px) {
+
+    /* 1. LOCK THE VIEWPORT */
+    body, html {
+        overflow: hidden;
+        height: 100dvh;
+        position: fixed;
+        width: 100%;
+    }
+
+    .app-container {
+        height: 100dvh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 2. SIDEBARS & RESIZERS - GONE */
+    .left-sidebar, .right-sidebar, .resizer {
+        display: none !important;
+    }
+
+    /* 3. MAIN CONTENT ARCHITECTURE */
+    .main-content {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden; 
+    }
+
+    /* 4. STICKY TOP HEADER */
+    .top-header {
+        flex-shrink: 0;
+        padding: 10px 15px;
+        background: white;
+        border-bottom: 1px solid var(--border-subtle);
+        justify-content: space-between;
+        z-index: 100;
+    }
+
+    .modern-select {
+        width: 160px;
+        font-size: 0.85rem;
+    }
+
+    /* 5. THE SCROLLABLE CHAT ZONE */
+    .chat-container {
+        flex: 1; 
+        overflow-y: auto; 
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* 6. COMPRESSED INTRO SCREEN (Fits without scrolling) */
+    .intro-screen {
+        margin: auto 0; /* Centers vertically in the empty space */
+        padding: 10px 0;
+        text-align: center;
+    }
+
+    .intro-screen h1 {
+        font-size: 1.6rem;
+        margin-bottom: 5px;
+    }
+
+    .suggestion-cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        padding: 5px;
+    }
+
+    .suggestion-card {
+        flex: 0 0 calc(50% - 4px); /* Perfect 2-column grid */
+        min-width: 130px;
+        padding: 12px;
+        font-size: 0.8rem;
+    }
+
+    .suggestion-card:last-child:nth-child(odd) {
+        flex: 0 0 80%; /* Centers the 3rd card */
+    }
+
+    /* 7. PILL-SHAPED STICKY INPUT (GEMINI STYLE) */
+    .input-wrapper {
+        flex-shrink: 0;
+        background: white;
+        padding: 10px 15px 30px; /* Extra bottom for iPhone home bar */
+        border-top: 1px solid var(--border-subtle);
+        z-index: 100;
+    }
+
+    .input-area {
+        width: 100%;
+        border-radius: 28px; /* High rounding for pill look */
+        padding: 8px 8px 8px 18px;
+        background: #f8f9fa;
+        border: 1px solid var(--border-subtle);
+    }
+
+    /* 8. MESSAGE BUBBLES */
+    .message {
+        max-width: 92%;
+        padding: 12px 16px;
+        font-size: 0.95rem;
+    }
+
+    /* 9. SELECTION OVERLAY (Stack Vertically) */
+    .selection-overlay { padding: 15px; }
+    .selection-card { padding: 25px 20px; width: 95%; }
+    .selection-card h1 { font-size: 1.5rem; }
+    
+    .selection-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .selection-btn {
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 15px;
+        height: auto;
+    }
+
+    .selection-btn i { width: 30px; margin-right: 10px; }
+    .selection-btn h3 { font-size: 0.95rem; }
+
+    /* 1. Show the hamburger ONLY on mobile */
+    .mobile-menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        color: var(--um-navy);
+        font-size: 1.4rem;
+        margin-right: 12px;
+        cursor: pointer;
+    }
+
+    /* 2. The Sidebar must be the absolute highest layer */
+    .left-sidebar {
+        display: flex !important;
+        position: fixed;
+        top: 0;
+        left: -100%; /* Off-screen */
+        width: 280px;
+        height: 100dvh;
+        z-index: 2000; /* Higher than header */
+        transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 15px 0 30px rgba(0,0,0,0.2);
+    }
+
+    .left-sidebar.active {
+        left: 0;
+    }
+
+    /* The Overlay Fix: Prevents the "double click" */
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 1500; /* Between Header and Sidebar */
+        display: none; /* JS will toggle this */
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .sidebar-overlay.active {
+        display: block;
+        opacity: 1;
+    }
+}
+
+/* ================================= 
+    HOME PAGE CSS
+    ================================*/
+
+    @media (max-width: 768px) {
+        /* 1. UNLOCK GLOBAL SCROLLING */
+        html, body {
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            height: auto !important;
+            position: relative !important;
+            -webkit-overflow-scrolling: touch;
+        }
+    
+        /* 2. STICKY NAVBAR */
+        .navbar-floating {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+            background: white !important;
+            z-index: 2000 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            padding: 12px 0 !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    
+        .nav-links-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+    
+        .nav-links {
+            display: flex !important;
+            gap: 20px !important;
+        }
+    
+        /* 3. HERO SECTION - BISON BEHIND TEXT */
+        .hero {
+            position: relative !important;
+            padding: 200px 20px 100px !important;
+            min-height: 100vh;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            overflow: hidden !important; /* Clips the large bison watermark */
+        }
+    
+        .hero-grid {
+            display: block !important; /* Removes desktop side-by-side grid */
+            width: 100% !important;
+            position: relative;
+            z-index: 10; /* Ensures text is in front of the Bison */
+        }
+    
+        .hero-content {
+            max-width: 100% !important;
+            margin: 0 auto !important;
+        }
+    
+        /* THE WATERMARK: Bison behind the text */
+        .hero-visual {
+            position: absolute !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            width: 160% !important; /* Large watermark look */
+            opacity: 0.1 !important; /* Very faint */
+            z-index: 1 !important; /* Sits behind the text (z-index 10) */
+            pointer-events: none;
+        }
+    
+        .hero-bison-logo {
+            width: 100%;
+            height: auto;
+            filter: grayscale(1) brightness(0.8);
+        }
+    
+        /* 4. SURGEON SECTION - TEXT CENTERED, IMAGE UNDERNEATH */
+        /* Target your 'About' or 'Surgeon' section container */
+        .about-grid, .surgeon-grid, #about .container {
+            display: flex !important;
+            flex-direction: column !important; /* Stack vertically */
+            align-items: center !important;
+            text-align: center !important;
+            gap: 30px !important;
+        }
+    
+        /* Target the text block in the bio */
+        .about-content, .surgeon-text {
+            width: 100% !important;
+            max-width: 100% !important;
+            order: 1 !important; /* Text on top */
+        }
+    
+        /* Target the image block in the bio */
+        .about-image, .hero-visual-surgeon, .surgeon-image {
+            width: 100% !important;
+            max-width: 300px !important; /* Keeps the face a reasonable size */
+            order: 2 !important; /* Image underneath text */
+            position: relative !important;
+            transform: none !important;
+            opacity: 1 !important;
+        }
+    
+        /* 5. STACK THE PROCEDURES */
+        .procedures-grid {
+            grid-template-columns: 1fr !important;
+            padding: 40px 20px;
+        }
+    }
